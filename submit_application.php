@@ -30,7 +30,9 @@ function submitApplication($formData) {
     );
 
     if ($stmt->execute()) {
-        $result = ["success" => true, "message" => "Sikeres jelentkezés!"];
+        // Sikeres jelentkezés esetén átirányítás a success.html oldalra
+        header("Location: success.html");
+        exit; // Fontos az exit() meghívása az átirányítás után
     } else {
         $result = ["success" => false, "message" => "Hiba történt: " . $stmt->error];
     }
@@ -43,6 +45,10 @@ function submitApplication($formData) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = submitApplication($_POST);
-    echo json_encode($result);
+    
+    // Ha a jelentkezés sikertelen volt, visszaadunk egy JSON választ
+    if (!$result['success']) {
+        echo json_encode($result);
+    }
 }
 ?>

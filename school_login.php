@@ -37,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['is_logged_in'] = true;
 
             // Átirányítás az admin profil oldalra, és bejelentkezési állapot tárolása a localStorage-ben
-            echo "<script>localStorage.setItem('is_logged_in', 'true'); window.location.href = 'admin_profile.html';</script>";
+            echo "<script>localStorage.setItem('is_logged_in2', 'true'); window.location.href = 'school_profile.html';</script>";
         } else {
-            echo "<script>alert('Hibás jelszó!'); window.location.href = 'admin_login.html';</script>";
+            echo "<script>alert('Hibás jelszó!'); window.location.href = 'school_login.html';</script>";
         }
     } else {
-        echo "<script>alert('Felhasználó nem található!'); window.location.href = 'admin_login.html';</script>";
+        echo "<script>alert('Felhasználó nem található!'); window.location.href = 'school_login.html';</script>";
     }
 
     $stmt->close();

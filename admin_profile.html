@@ -3,22 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesadmin.css">
     <title>Verseny Adminisztráció</title>
-    <script>
-        // Ellenőrizzük a bejelentkezési jelzőt a localStorage-ban
-        if (!localStorage.getItem('is_logged_in')) {
-            // Ha a felhasználó nincs bejelentkezve, visszairányítjuk a bejelentkezés oldalra
-            window.location.href = 'admin_login.html';
-        }
-    </script>
+
 </head>
 <body>
+
     <div class="container">
         <button id="dark-mode-toggle">🌙</button>
+
         <h1>Verseny Adminisztrációs Felület</h1>
-        <p>Üdvözöllek az admin felületen, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>!</p>
+
+        <!-- Programnyelvek kezelése -->
+        <div class="section">
+            <h2>Programnyelvek kezelése</h2>
+            <form id="language-form">
+                <label for="language">Új programnyelv hozzáadása:</label>
+                <input type="text" id="language" name="language" placeholder="Programnyelv neve" required>
+                <button type="submit">Hozzáadás</button>
+                <br>
+
+            </form>
+            <div id="language-list">
+                <h3>Elérhető programnyelvek</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Programnyelv</th>
+                            <th>Törlés</th>
+                        </tr>
+                    </thead>
+                    <tbody id="language-list-body">
+                        <!-- Programnyelvek itt jelennek meg -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Kategóriák kezelése -->
+        <div class="section">
+            <br>
+            <h2>Kategóriák kezelése</h2>
+            <br>
+            <form id="category-form">
+                <label for="category">Új kategória hozzáadása:</label>
+                <input type="text" id="category" name="category" placeholder="Kategória neve" required>
+                <br>
+                <button type="submit">Hozzáadás</button>
+                <br>
+            </form>
+            <div id="category-list">
+                <h3>Elérhető kategóriák</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kategória</th>
+                            <th>Törlés</th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-list-body">
+                        <!-- Kategóriák itt jelennek meg -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<br>
+       
+
+        <!-- Iskolák kezelése -->
+        <div class="section">
+            <br>
+            <h2>Iskolák kezelése</h2>
+            <form id="school-form">
+                <label for="school-name">Iskola neve:</label>
+                <input type="text" id="school-name" name="school-name" placeholder="Iskola neve" required>
+                <label for="school-address">Iskola címe:</label>
+                <input type="text" id="school-address" name="school-address" placeholder="Iskola címe" required>
+                <label for="contact-name">Kapcsolattartó neve:</label>
+                <input type="text" id="contact-name" name="contact-name" placeholder="Kapcsolattartó neve" required>
+                <label for="contact-email">Kapcsolattartó email címe:</label>
+                <input type="email" id="contact-email" name="contact-email" placeholder="Kapcsolattartó email címe" required>
+                <button type="submit">Iskola regisztrálása</button>
+            </form>
+            <br>
+            <h3>Regisztrált iskolák:</h3>
+            <br>
+            <table id="school-list">
+                <thead>
+                    <tr>
+                        <th>Iskola neve</th>
+                        <th>Kapcsolattartó</th>
+                        <th>Név</th>
+                        <th>Törlés</th>
+                        <th>Jóváhagyás</th>
+                        <th>Visszaküldés</th>
+                    </tr>
+                </thead>
+                <tbody id="school-list-body">
+                    <!-- Regisztrált iskolák itt jelennek meg -->
+                </tbody>
+            </table>
+        </div>
+<br>
+ <!-- Jelentkezési határidő kezelése -->
+ <div class="section">
+    <h2>Jelentkezési határidő</h2>
+    <form id="deadline-form">
+        <label for="deadline">Jelentkezési határidő:</label>
+        <input type="datetime-local" id="deadline" name="deadline" required>
+        <button type="submit">Módosítás</button>
+    </form>
+    <br>
+    <p id="current-deadline">Jelenlegi határidő:IDE KELL</p>
+    <br>
+
+</div>
+
+
+        <div class="message" id="message"></div>
+        <button id="close-registration" class="warning">Jelentkezés lezárása</button>
+        
+
+        <!-- Vissza a főoldalra gomb -->
+        <a href="index.html" class="back-to-home-btn">Vissza a főoldalra</a>
+        
     </div>
+    
+
+    <script>
+        // Ellenőrizzük a bejelentkezési jelzőt a localStorage-ban
+       //  if (!localStorage.getItem('is_logged_in')) {
+            // Ha a felhasználó nincs bejelentkezve, visszairányítjuk a bejelentkezés oldalra
+       //      window.location.href = 'admin_login.html';
+      //   }
+    </script>
     <script src="dark-mode.js"></script>
 </body>
 </html>
