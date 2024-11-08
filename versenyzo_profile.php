@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 
 // Ellenőrizzük, hogy van-e bejelentkezett felhasználó
 if (!isset($_SESSION['user_id'])) {
@@ -24,7 +25,6 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8mb4");
 
-// Profil adatok lekérése
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT * FROM applications WHERE id = ?";
@@ -39,9 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         echo json_encode(["success" => false, "message" => "Felhasználó nem található!"]);
     }
-}
-// Profil adatok frissítése
-elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
     $team_name = $_POST['team_name'];
     $school_name = $_POST['school_name'];
@@ -67,7 +65,13 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssisisississi", 
+    if (!$stmt) {
+        echo json_encode(["success" => false, "message" => "Előkészítési hiba: " . $conn->error]);
+        exit;
+    }
+
+    // Figyeljünk a megfelelő típusokra: "sssisisisisssi"
+    $stmt->bind_param("sssisisisisssi", 
         $team_name, $school_name,
         $team_member1_name, $team_member1_grade,
         $team_member2_name, $team_member2_grade,
@@ -82,6 +86,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo json_encode(["success" => false, "message" => "Hiba történt a frissítés során: " . $stmt->error]);
     }
+
+    $stmt->close();
 }
 
 $conn->close();

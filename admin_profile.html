@@ -18,15 +18,6 @@
         <button id="dark-mode-toggle">🌙</button>
         <h1>Verseny Adminisztrációs Felület</h1>
         <p>Üdvözöllek az admin felületen, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>!</p>
-        <button onclick="logout()">Kijelentkezés</button>
-
-<script>
-    function logout() {
-        localStorage.removeItem('is_logged_in');
-        window.location.href = 'admin_login.html';
-    }
-</script>
-
     </div>
     <script src="dark-mode.js"></script>
 </body>
