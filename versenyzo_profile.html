@@ -35,10 +35,10 @@
             <label for="team_member3_grade">Harmadik tag osztály:</label>
             <input type="number" id="team_member3_grade" name="team_member3_grade" required>
 
-            <label for="substitute_member_name">Pót tag neve:</label>
+            <label for="substitute_member_name">Pót tag név:(ha nincs akkor jelezze hogy "nincs")</label>
             <input type="text" id="substitute_member_name" name="substitute_member_name">
-
-            <label for="substitute_member_grade">Pót tag osztály:</label>
+            
+            <label for="substitute_member_grade">Pót tag évfolyam:(ha nincs akkor jelezze hogy "0")</label>
             <input type="number" id="substitute_member_grade" name="substitute_member_grade">
 
             <label for="teacher">Felkészítő tanár/tanárok:</label>
@@ -64,11 +64,43 @@
         <br>
         <div id="message"></div>
         <br>
-        <form action="logout.php" method="post">
+        <form action="logoutversenyző.php" method="post">
             <button type="submit">Kijelentkezés</button>
         </form>
     </div>
     <script src="dark-mode.js"></script>
-    <script src="profile.js"></script>
+    <script>
+        // Fetch user data and populate form
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("versenyzo_profile.php", {
+                method: "GET",
+                credentials: "include"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("team_name").value = data.data.team_name || '';
+                    document.getElementById("school_name").value = data.data.school_name || '';
+                    document.getElementById("team_member1_name").value = data.data.team_member1_name || '';
+                    document.getElementById("team_member1_grade").value = data.data.team_member1_grade || '';
+                    document.getElementById("team_member2_name").value = data.data.team_member2_name || '';
+                    document.getElementById("team_member2_grade").value = data.data.team_member2_grade || '';
+                    document.getElementById("team_member3_name").value = data.data.team_member3_name || '';
+                    document.getElementById("team_member3_grade").value = data.data.team_member3_grade || '';
+                    document.getElementById("substitute_member_name").value = data.data.substitute_member_name || '';
+                    document.getElementById("substitute_member_grade").value = data.data.substitute_member_grade || '';
+                    document.getElementById("teacher").value = data.data.teacher || '';
+                    document.getElementById("category").value = data.data.category || '';
+                    document.getElementById("programming_language").value = data.data.programming_language || '';
+                } else {
+                    document.getElementById("message").innerText = data.message;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching user data:", error);
+                document.getElementById("message").innerText = "Hiba történt az adatok betöltésekor.";
+            });
+        });
+    </script>
 </body>
 </html>

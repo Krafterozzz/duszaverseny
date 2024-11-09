@@ -9,10 +9,10 @@ $dbname = "duszadb";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
+// Kapcsolódási hiba kezelése
 if ($conn->connect_error) {
     die(json_encode(["success" => false, "message" => "Kapcsolódási hiba: " . $conn->connect_error]));
 }
-
 $conn->set_charset("utf8mb4");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -39,10 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Átirányítás az admin profil oldalra, és bejelentkezési állapot tárolása a localStorage-ben
             echo "<script>localStorage.setItem('is_logged_in', 'true'); window.location.href = 'admin_profile.html';</script>";
         } else {
-            echo "<script>alert('Hibás jelszó!'); window.location.href = 'admin_login.html';</script>";
+            // Hibás jelszó esetén átirányítás
+            header("Location: failedloginjelszo.html");
+            exit();
         }
     } else {
-        echo "<script>alert('Felhasználó nem található!'); window.location.href = 'admin_login.html';</script>";
+        // Hibás felhasználónév esetén átirányítás
+        header("Location: failedloginfelhasznalo.html");
+        exit();
     }
 
     $stmt->close();

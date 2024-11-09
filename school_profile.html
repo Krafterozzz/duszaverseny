@@ -18,6 +18,10 @@
         <button id="dark-mode-toggle">🌙</button>
         <h1>Verseny ISKOLAI FELÜLET</h1>
         <p>Üdvözöllek az admin felületen, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>!</p>
+        <br>
+        <form action="logoutiskola.php" method="post">
+            <button type="submit">Kijelentkezés</button>
+        </form>
     </div>
     <script src="dark-mode.js"></script>
 </body>

@@ -120,22 +120,39 @@
 </div>
 
 
-        <div class="message" id="message"></div>
-        <button id="close-registration" class="warning">Jelentkezés lezárása</button>
+<div class="message" id="message"></div>
+<br>
+<button id="close-registration" class="warning">Jelentkezés lezárása</button>
         
-
+<br>
+<br>
         <!-- Vissza a főoldalra gomb -->
-        <a href="index.html" class="back-to-home-btn">Vissza a főoldalra</a>
+        <form action="logoutadmin.php" method="post">
+            <button type="submit">Kijelentkezés</button>
+        </form>
         
     </div>
     
 
     <script>
         // Ellenőrizzük a bejelentkezési jelzőt a localStorage-ban
-       //  if (!localStorage.getItem('is_logged_in')) {
-            // Ha a felhasználó nincs bejelentkezve, visszairányítjuk a bejelentkezés oldalra
-       //      window.location.href = 'admin_login.html';
-      //   }
+       if (!localStorage.getItem('is_logged_in')) {
+           // Ha a felhasználó nincs bejelentkezve, visszairányítjuk a bejelentkezés oldalra
+            window.location.href = 'admin_login.html';
+        }
+
+        let clickCount = 0; // Kattintások számlálója
+
+document.getElementById("close-registration").addEventListener("click", function() {
+  clickCount++; // Növeli a kattintásszámlálót
+  if (clickCount < 3) {
+    document.getElementById("message").innerText = `Még ${3 - clickCount} kattintás szükséges a lezáráshoz.`;
+  } else {
+    document.getElementById("message").innerText = "A jelentkezés lezárva!";
+    document.getElementById("close-registration").disabled = true; // Gomb letiltása lezárás után
+  }
+});
+
     </script>
     <script src="dark-mode.js"></script>
 </body>
