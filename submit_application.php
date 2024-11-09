@@ -13,6 +13,10 @@ function submitApplication($formData) {
 
     $hashedPassword = password_hash($formData['password'], PASSWORD_DEFAULT);
 
+    // Alapértelmezett értékek beállítása a pót tagokhoz, ha üresek
+    $substituteMemberName = empty($formData['substitute_member_name']) ? NULL : $formData['substitute_member_name'];
+    $substituteMemberGrade = empty($formData['substitute_member_grade']) ? NULL : $formData['substitute_member_grade'];
+
     $sql = "INSERT INTO applications (username, password, team_name, school_name, 
         team_member1_name, team_member1_grade, team_member2_name, team_member2_grade, 
         team_member3_name, team_member3_grade, substitute_member_name, substitute_member_grade, 
@@ -25,7 +29,7 @@ function submitApplication($formData) {
         $formData['team_member1_name'], $formData['team_member1_grade'], 
         $formData['team_member2_name'], $formData['team_member2_grade'], 
         $formData['team_member3_name'], $formData['team_member3_grade'], 
-        $formData['substitute_member_name'], $formData['substitute_member_grade'], 
+        $substituteMemberName, $substituteMemberGrade, 
         $formData['teacher'], $formData['category'], $formData['programming_language']
     );
 
@@ -51,4 +55,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode($result);
     }
 }
+
 ?>

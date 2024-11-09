@@ -35,10 +35,10 @@
             <label for="team_member3_grade">Harmadik tag osztály:</label>
             <input type="number" id="team_member3_grade" name="team_member3_grade" required>
 
-            <label for="substitute_member_name">Pót tag név:(ha nincs akkor jelezze hogy "nincs")</label>
+            <label for="substitute_member_name">Pót tag név:</label>
             <input type="text" id="substitute_member_name" name="substitute_member_name">
             
-            <label for="substitute_member_grade">Pót tag évfolyam:(ha nincs akkor jelezze hogy "0")</label>
+            <label for="substitute_member_grade">Pót tag évfolyam:</label>
             <input type="number" id="substitute_member_grade" name="substitute_member_grade">
 
             <label for="teacher">Felkészítő tanár/tanárok:</label>
@@ -64,7 +64,7 @@
         <br>
         <div id="message"></div>
         <br>
-        <form action="logoutversenyző.php" method="post">
+        <form action="logout.php" method="post">
             <button type="submit">Kijelentkezés</button>
         </form>
     </div>
@@ -101,6 +101,39 @@
                 document.getElementById("message").innerText = "Hiba történt az adatok betöltésekor.";
             });
         });
+    
+        document.getElementById("profile-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData(this);
+    
+            fetch("versenyzo_profile.php", {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageElement = document.getElementById("message");
+                if (data.success) {
+                    messageElement.innerText = "Adatok sikeresen frissítve!";
+                    messageElement.style.color = "green";  // Set the message text color to green
+                    setTimeout(function() {
+                        window.location.href = "index.html";  // Redirect after 2 seconds
+                    }, 2000);
+                } else {
+                    messageElement.innerText = "Hiba történt: " + data.message;
+                    messageElement.style.color = "red";  // Set the message text color to red in case of an error
+                }
+            })
+            .catch(error => {
+                console.error("Error updating user data:", error);
+                const messageElement = document.getElementById("message");
+                messageElement.innerText = "Hiba történt a frissítés során.";
+                messageElement.style.color = "red";  // Set the message text color to red in case of an error
+            });
+        });
     </script>
+    
 </body>
 </html>
