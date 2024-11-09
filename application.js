@@ -27,5 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.textContent = 'Hiba történt a jelentkezés során.';
             messageDiv.style.color = 'red';
         }
+
+        function fetchSchools() {
+            fetch('schools_api.php', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // További feldolgozás
+            })
+            .catch(error => console.error('Hiba a lekérdezés során:', error));
+        }
+        
+
+
     });
 });

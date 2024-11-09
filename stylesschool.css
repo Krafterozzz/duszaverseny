@@ -71,13 +71,14 @@ body.dark-mode button:hover {
 }
 
 /* Dark mode toggle button inside the container */
+/* Dark mode toggle button inside the container */
 #dark-mode-toggle {
     position: absolute;
     top: 10px;
     left: 10px;
     width: 40px;
     height: 40px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Keep the same color in both modes */
     color: #fff;
     border: none;
     border-radius: 50%;
@@ -91,6 +92,15 @@ body.dark-mode button:hover {
 }
 
 #dark-mode-toggle:hover {
+    background-color: #3a7bc8;
+}
+
+/* Ensure the color stays the same in dark mode */
+body.dark-mode #dark-mode-toggle {
+    background-color: var(--primary-color); /* Keep the same color in dark mode */
+}
+
+body.dark-mode #dark-mode-toggle:hover {
     background-color: #3a7bc8;
 }
 

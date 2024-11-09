@@ -5,6 +5,9 @@ function submitApplication($formData) {
     $password = "y@f9Tu7hx2rMBXG4";
     $dbname = "duszadb";
 
+
+    header('Content-Type: application/json');
+
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     if ($conn->connect_error) {
