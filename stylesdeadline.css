@@ -11,7 +11,7 @@
     --dark-primary-color: #2884ee;
 
     --container-width: 100%;
-    --container-max-width: 1300px;
+    --container-max-width: 900px;
     --container-padding: 40px;
     --dialog-padding: 20px;
     --overlay-bg-color: rgba(0,0,0,0.5);
@@ -505,4 +505,10 @@ body.dark-mode .delete-btn {
     margin-bottom: 32px;
     padding: 10px 20px;
     width: 100%;
+}
+
+
+
+.container form:last-child {
+    margin-top: 20px;
 }
